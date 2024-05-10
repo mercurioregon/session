@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
 const { DataTypes } = require('sequelize/types');
 
-class User extends Mopdel {
+class User extends Model {
     passCheck(pass) {
         return bcrypt.compareSync(pass, this.password);
     }
