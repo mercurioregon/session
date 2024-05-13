@@ -1,0 +1,12 @@
+<div>
+  <h2>Welcome, {{{profile.display_name}}}</h2>
+  {{#if profile.images[0]}}
+  <img src= {{{profile.images[0].url}}} alt="Profile Image" width="200" height="200">
+  {{/if}}
+  <br>
+  <button type="button">Get Recommendations</button>
+  <button type="button">View Groups</button>
+  <button type="button">View Friends</button>
+</div>
+
+<script src="../public/js/profile.js"></script>
