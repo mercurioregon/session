@@ -19,7 +19,11 @@
     "express-session": "^1.17.1",
     "handlebars": "^4.7.6",
     "mysql2": "^2.2.5",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "cookie-parser": "1.4.6",
+    "cors": "2.8.5",
+    "querystring": "~0.2.0",
+    "request": "2.88.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
