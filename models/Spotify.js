@@ -16,7 +16,7 @@ Spotify.init(
             allowNull: false,
             primaryKey: true,
             autoIncrement: true,
-          },
+            },
         token: {
             type: DataTypes.STRING,
             allowNull: false,
