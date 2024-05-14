@@ -36,7 +36,7 @@ const homeRoutes = require('./homeRoutes.js');
 //          } )
 //      })
 
-router.use('/', homeRoutes);
+router.use('/home', homeRoutes);
 // router.use('/api', apiRoutes);
 
 module.exports = router;

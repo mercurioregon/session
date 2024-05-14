@@ -10,7 +10,7 @@ var cookieParser = require("cookie-parser");
 
 var client_id = "2fb4b32039a3437a86f2555b65cd707e"; // clientId
 var client_secret = "ded8bbe740b44c52890590889397007f"; // clientSecret
-var redirect_uri = "http://localhost:3001/callback"; // redirect uri
+var redirect_uri = "http://localhost:3001/"; // redirect uri
 
 const generateRandomString = (length) => {
   return crypto.randomBytes(60).toString("hex").slice(0, length);
