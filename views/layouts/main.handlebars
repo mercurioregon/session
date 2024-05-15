@@ -5,22 +5,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Session</title>
-  <link rel="stylesheet" type="text/css" href="../../public/">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+  <link rel="stylesheet" type="text/css" href="../..public/style.css">
+  <link rel="stylesheet" type="text/scss" href="../..public/style.scss">
 </head> 
 
 <body>
   <header>
+    <div class="block">
+      <div class="columns is-centered">
+      <div class ="text is-size-1 has-text-weight-bold has-text-white is-centered mb-6">
     <h1>Session</h1>
+    </div>
+  </div>
+    </div>
   </header>
   <nav>
+    <div class="columns is-centered">
     <a href="/profile">Profile</a>
+    </div>
   </nav>
   <main>
     {{ body }}
+      <div class="columns is-centered">
+        <div class="columns is-flex-direction-column is-align-content-center is-4 mt-3">
+        
+    <button class="button is-danger is-medium is-outlined mt-6">Get Recommendations</button>
+    <button class="button is-danger is-medium is-outlined mt-3" >View Groups</button>
+    <button class="button is-danger is-medium is-outlined mt-3">View Friends</button>
+      </div>
+    </div>
   </main>
+  
   <footer>
-    
+    <div class="columns is-centered mt-6 p-6">
+      <div class ="text is-size-6 has-text-white is-centered mb-6">
+      <h3>Powered by:</h3>
+        </div>
+          <img src="Spotify_Logo_RGB_Green.png" alt="Spotify full logo" style="width: 350px; height:100px;">
+       </div>
   </footer>
+
 </body>
 
 </html>
