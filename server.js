@@ -9,16 +9,30 @@ const cors = require("cors");
 const querystring = require("querystring");
 const cookieParser = require("cookie-parser");
 
-const routes = require('./controllers');
+// const routes = require('./controllers');
+const router = require('./controllers');
 const sequelize = require('./config/connection');
 // const helpers = require('./utils/helpers');
 
 var client_id = "2fb4b32039a3437a86f2555b65cd707e"; // clientId
 var client_secret = "ded8bbe740b44c52890590889397007f"; // clientSecret
-var redirect_uri = "http://localhost:3001/home"; // redirect uri
+var redirect_uri = "http://localhost:3001/"; // redirect uri
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+const sess = {
+  secret: 'Super secret secret',
+  cookie: {},
+  user: null,
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+  db: sequelize,
+  }),
+};
+
+app.use(session(sess));
 
 // TODO - Finalize sess for saving current session
 // TEST // -------------------------------------------------------------------------------------
@@ -28,10 +42,28 @@ const generateRandomString = (length) => {
 
 var stateKey = "spotify_auth_state";
 
-app
-  .use(express.static(__dirname + "/public"))
-  .use(cors())
-  .use(cookieParser());
+  const hbs = exphbs.create({});
+
+  app.engine('handlebars', hbs.engine);
+  app.set('view engine', 'handlebars');
+  // app.set(`views`, `./views`);
+  
+  app.use(express.json());
+  app.use(cors());
+  app.use(cookieParser());
+  app.use(express.urlencoded({ extended: true }));
+  app.use(express.static(path.join(__dirname, 'public')));
+  // app
+  // .use(express.static(__dirname + "/public"))
+  // .use(cors())
+  // .use(cookieParser());
+  
+  app.use(router);
+  
+  sequelize.sync({ force: false }).then(() => {
+    app.listen(PORT, () => console.log('Now listening'));
+  });
+
 
 app.get("/login", function (req, res) {
   var state = generateRandomString(16);
@@ -39,6 +71,7 @@ app.get("/login", function (req, res) {
 
   // application requests authorization
   var scope = "user-read-private user-read-email ugc-image-upload user-read-playback-state user-modify-playback-state user-read-currently-playing streaming playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public user-follow-modify user-follow-read user-read-playback-position user-top-read user-read-recently-played user-library-modify user-library-read ";
+  
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
       querystring.stringify({
@@ -58,7 +91,8 @@ app.get("/", function (req, res) {
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
-
+  console.log(`stored state`, storedState);
+  console.log(`state`, state);
   if (state === null || state !== storedState) {
     res.redirect(
       "/#" +
@@ -97,30 +131,31 @@ app.get("/", function (req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function (error, response, body) {
-          const newProf = {
-            displayName: body.display_name
-          };
-          console.log(body);
-          console.log(newProf);
-          module.exports.newProf = newProf;
-          return newProf;
+
+          res.redirect(
+            "/home?" +
+              querystring.stringify({
+                access_token: access_token,
+                refresh_token: refresh_token,
+                displayName: body.display_name,
+                id: body.id,
+                profPic: body.images,
+                user_uri: body.uri,
+                followers: body.followers,
+                country: body.country,                
+              })
+          );
         });
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect(
-          "/#" +
-            querystring.stringify({
-              access_token: access_token,
-              refresh_token: refresh_token,
-            })
-        );
+
       } else {
-        res.redirect(
-          "/#" +
-            querystring.stringify({
-              error: "invalid_token",
-            })
-        );
+        // res.redirect(
+        //   "/#" +
+        //     querystring.stringify({
+        //       error: "invalid_token",
+        //     })
+        // );
       }
     });
   }
@@ -157,30 +192,3 @@ app.get("/refresh_token", function (req, res) {
 });
 
 // TEST //--------------------------------------------------------------
-const sess = {
-  secret: 'Super secret secret',
-  cookie: {},
-  resave: false,
-  saveUninitialized: true,
-  store: new SequelizeStore({
-  db: sequelize,
-  }),
-};
-
-app.use(session(sess));
-
-const hbs = exphbs.create({ });
-
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'handlebars');
-app.set(`views`, `./views`);
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(routes);
-
-sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening'));
-});
