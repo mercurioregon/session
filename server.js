@@ -42,20 +42,21 @@ const generateRandomString = (length) => {
 
 var stateKey = "spotify_auth_state";
 
-app
-  .use(express.static(__dirname + "/public"))
-  .use(cors())
-  .use(cookieParser());
-
-  const hbs = exphbs.create({ });
+  const hbs = exphbs.create({});
 
   app.engine('handlebars', hbs.engine);
   app.set('view engine', 'handlebars');
-  app.set(`views`, `./views`);
+  // app.set(`views`, `./views`);
   
   app.use(express.json());
+  app.use(cors());
+  app.use(cookieParser());
   app.use(express.urlencoded({ extended: true }));
   app.use(express.static(path.join(__dirname, 'public')));
+  // app
+  // .use(express.static(__dirname + "/public"))
+  // .use(cors())
+  // .use(cookieParser());
   
   app.use(router);
   
@@ -63,19 +64,6 @@ app
     app.listen(PORT, () => console.log('Now listening'));
   });
 
-
-  // const sess = {
-  //   secret: 'Super secret secret',
-  //   cookie: {},
-  //   user: null,
-  //   resave: false,
-  //   saveUninitialized: true,
-  //   store: new SequelizeStore({
-  //   db: sequelize,
-  //   }),
-  // };
-  
-  // app.use(session(sess));
 
 app.get("/login", function (req, res) {
   var state = generateRandomString(16);
@@ -150,6 +138,11 @@ app.get("/", function (req, res) {
                 access_token: access_token,
                 refresh_token: refresh_token,
                 displayName: body.display_name,
+                id: body.id,
+                profPic: body.images,
+                user_uri: body.uri,
+                followers: body.followers,
+                country: body.country,                
               })
           );
         });
