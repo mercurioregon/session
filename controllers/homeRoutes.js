@@ -2,7 +2,8 @@ const router = require('express').Router();
 
 router.get (`/`,(req, res) =>{
     newProf = req.query.displayName;
-    res.render('homepage', {
+    console.log ("HomeRoutes", req.session);
+    res.render(`homepage`, {
         newProf,
     });
 });
