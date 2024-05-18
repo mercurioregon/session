@@ -1,7 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
-const { DataTypes } = require('sequelize/types');
 
 class Spotify extends Model {
     authCheck(auth) {
