@@ -142,5 +142,60 @@ app.get("/refresh_token", function (req, res) {
   });
 });
 
+app.get(`/request-featured`,async(req, res) => {
+  var authOptions = {
+    url: "https://accounts.spotify.com/api/token",
+    form: {
+      code: code,
+      redirect_uri: redirect_uri,
+      grant_type: "authorization_code",
+    },
+    headers: {
+      "content-type": "application/x-www-form-urlencoded",
+      Authorization:
+        "Basic " +
+        new Buffer.from(client_id + ":" + client_secret).toString("base64"),
+    },
+    json: true,
+  };
+
+  request.post(authOptions, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      var access_token = body.access_token
+ 
+
+      var options = {
+        url: "https://api.spotify.com/v1/browse/featured-playlists",
+        headers: { Authorization: "Bearer " + access_token },
+        json: true,
+      };
+
+      // use the access token to access the Spotify Web API
+      request.get(options, function (error, response, body) {
+        console.log(body);
+      });
+
+      // we can also pass the token to the browser to make requests from there
+      res.redirect(
+        "/#" +
+          querystring.stringify({
+            access_token: access_token,
+            refresh_token: refresh_token,
+          })
+      );
+    } else {
+      res.redirect(
+        "/#" +
+          querystring.stringify({
+            error: "invalid_token",
+          })
+      );
+    }
+  });
+const list= await fetch("https://api.spotify.com/v1/browse/featured-playlists")
+ 
+
+console.info(`${req.method} what info goes here?`);
+});
 // console.log("Listening on 5173");
 // app.listen(5173);
