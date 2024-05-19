@@ -35,8 +35,6 @@ const sess = {
 
 app.use(session(sess));
 
-// TODO - Finalize sess for saving current session
-// TEST // -------------------------------------------------------------------------------------
 const generateRandomString = (length) => {
   return crypto.randomBytes(60).toString("hex").slice(0, length);
 };
@@ -54,10 +52,7 @@ var stateKey = "spotify_auth_state";
   app.use(cookieParser());
   app.use(express.urlencoded({ extended: true }));
   app.use(express.static(path.join(__dirname, 'public')));
-  // app
-  // .use(express.static(__dirname + "/public"))
-  // .use(cors())
-  // .use(cookieParser());
+
   
   app.use(router);
   
@@ -140,7 +135,7 @@ console.log("redirect")
                 refresh_token: refresh_token,
                 displayName: body.display_name,
                 id: body.id,
-                profPic: body.images[0],
+                profPic: body.images[0].url,
                 user_uri: body.uri,
                 followers: body.followers,
                 country: body.country,                
@@ -191,10 +186,3 @@ app.get("/refresh_token", function (req, res) {
     }
   });
 });
-
-
-
-
-
-
-// TEST //--------------------------------------------------------------

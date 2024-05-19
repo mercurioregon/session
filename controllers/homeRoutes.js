@@ -1,7 +1,7 @@
 const router = require('express').Router();
-var ACCESSTOKEN = ""
+// var ACCESSTOKEN = ""
 
-ACCESSTOKEN = access_token
+// ACCESSTOKEN = access_token
 
 router.get (`/`,(req, res) =>{
   newProf = req.query.displayName;
