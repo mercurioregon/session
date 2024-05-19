@@ -18,6 +18,7 @@ var client_id = "2fb4b32039a3437a86f2555b65cd707e"; // clientId
 var client_secret = "ded8bbe740b44c52890590889397007f"; // clientSecret
 var redirect_uri = "http://localhost:3001/"; // redirect uri
 
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -87,7 +88,7 @@ app.get("/login", function (req, res) {
 app.get("/", function (req, res) {
   // application requests refresh and access tokens
   // after checking the state parameter
-
+console.log("redirect")
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
@@ -122,7 +123,7 @@ app.get("/", function (req, res) {
       if (!error && response.statusCode === 200) {
         var access_token = body.access_token,
           refresh_token = body.refresh_token;
-
+     
         var options = {
           url: "https://api.spotify.com/v1/me",
           headers: { Authorization: "Bearer " + access_token },
@@ -190,5 +191,10 @@ app.get("/refresh_token", function (req, res) {
     }
   });
 });
+
+
+
+
+
 
 // TEST //--------------------------------------------------------------
