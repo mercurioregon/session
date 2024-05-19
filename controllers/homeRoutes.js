@@ -3,6 +3,14 @@ var ACCESSTOKEN = ""
 
 ACCESSTOKEN = access_token
 
+router.get (`/`,(req, res) =>{
+  newProf = req.query.displayName;
+  console.log ("HomeRoutes", req.session);
+  res.render(`homepage`, {
+      newProf,
+  });
+});
+
 router.get(`/request-featured`,async(req, res) => {
   console.log(ACCESSTOKEN)
   const list= await fetch("https://api.spotify.com/v1/browse/featured-playlists", {
