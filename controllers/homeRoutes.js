@@ -1,4 +1,7 @@
 const router = require('express').Router();
+// var ACCESSTOKEN = ""
+
+// ACCESSTOKEN = access_token
 
 
 router.get (`/`,(req, res) =>{

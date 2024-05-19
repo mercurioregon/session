@@ -1,9 +1,10 @@
 <div>
   <h2>Welcome, {{newProf}}</h2>
-  {{!-- {{#if profile.images[0]}}
-  <img src= {{{profile.images[0].url}}} alt="Profile Image" width="200" height="200">
-  {{/if}} --}}
-  <button type="button" onclick="topFive()" id="button1">Get Recommendations</button>
+  {{#if profPic}}
+  <img src= {{{profPic}}} alt="Profile Image" width="300" height="300">
+  {{/if}} 
+  <button type="button" onclick="backTo5()" id="button1">My Top 5</button>
+  <button type="button" onclick="getRecs()" id="button1">Get Recommendations</button>
   <button type="button">View Groups</button>
   <button type="button">View Friends</button>
 </div>
