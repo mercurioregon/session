@@ -40,7 +40,7 @@ $text: hsl(iv.$scheme-h, iv.$scheme-s, $text-l);
   // Required: update the "on scheme" colors since the main scheme color is changed
   // from white (100% lightness)
   // to black (11% lightness in this case)
-   @each $name, $color in dv.$colors {
+    @each $name, $color in dv.$colors {
     @include cv.generate-on-scheme-colors($name, $color, $scheme-main);
   }
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,12 +8,12 @@
   
   {{!-- stlye elements for Spotify iframe --}}
   <style>
-    .episodes {
+    .tracks {
       display: flex;
       flex-direction: column;
     }
 
-    .episode {
+    .track {
       min-width: max-content;
       margin-bottom: .8rem;
       padding: .8rem 1rem;
@@ -24,7 +24,7 @@
       cursor: pointer;
     }
 
-    .episode:hover {
+    .track:hover {
       background: #1Db954;
     }
 
@@ -38,9 +38,17 @@
   </style>
   <link rel="stylesheet" href="../../public/css/css/index.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
-  <link rel="stylesheet" type="text/css" href="../..public/style.css">
-  <link rel="stylesheet" type="text/scss" href="../..public/style.scss">
-
+  <link rel="stylesheet" type="text/scss" href="/style.scss">
+  <script src="/js/topFive.js"></script>
+  {{!-- Live Chat software --}}
+  <script src="https://www.momentcrm.com/embed"></script>
+  <script>
+    MomentCRM('init', {
+      'teamVanityId': 'session',
+      'doChat': true,
+      'doTimeTravel': true,
+    });
+</script>
 </head> 
 
 <body>
@@ -60,19 +68,31 @@
   </nav>
   <main>
     {{{ body }}}
-  </main>
+  </main><div class="0"></div>
 
 <div>
-    <div class="episodes">
-    <button class="episode" data-spotify-id="spotify:episode:7makk4oTQel546B0PZlDM5">
-      My Path to Spotify: Women in Engineering
+  <div class="tracks">
+
+    <button id="track-0" class="track" data-spotify-id=""> 
+      <b id="name-0"></b>
     </button>
-    <button class="episode" data-spotify-id="spotify:episode:43cbJh4ccRD7lzM2730YK3">
-      What is Backstage?
+
+    <button id="track-1" class="track" data-spotify-id="">
+      <b id="name-1"></b>
     </button>
-    <button class="episode" data-spotify-id="spotify:episode:6I3ZzCxRhRkNqnQNo8AZPV">
-      Introducing Nerd Out@Spotify
+    
+    <button id="track-2" class="track" data-spotify-id="">
+      <b id="name-2"></b>
     </button>
+
+    <button id="track-3" class="track" data-spotify-id="">
+      <b id="name-3"></b>
+    </button>
+
+    <button id="track-4" class="track" data-spotify-id="">
+      <b id="name-4"></b>
+    </button>
+
   </div>
 
   <div id="embed-iframe"></div>
@@ -84,40 +104,30 @@
       const options = {
         width: '100%',
         height: '160',
-        uri: 'spotify:episode:7makk4oTQel546B0PZlDM5'
+        uri: 'spotify:track:18AXbzPzBS8Y3AkgSxzJPb'
       };
       const callback = (EmbedController) => {
-        document.querySelectorAll('.episode').forEach(
-          episode => {
-            episode.addEventListener('click', () => {
-              EmbedController.loadUri(episode.dataset.spotifyId)
+        document.querySelectorAll('.track').forEach(
+          track => {
+            track.addEventListener('click', () => {
+              EmbedController.loadUri(track.dataset.spotifyId)
             });
           })
       };
       IFrameAPI.createController(element, options, callback);
     };
   </script>
-</div>
-    {{ body }}
-      <div class="columns is-centered">
-        <div class="columns is-flex-direction-column is-align-content-center is-4 mt-3">
-        
-    <button class="button is-danger is-medium is-outlined mt-6">Get Recommendations</button>
-    <button class="button is-danger is-medium is-outlined mt-3" >View Groups</button>
-    <button class="button is-danger is-medium is-outlined mt-3">View Friends</button>
-      </div>
-    </div>
+  
   </main>
   
   <footer>
-    <div class="columns is-centered mt-6 p-6">
+    <div class="columns is-centered mt-6 p-6"> 
       <div class ="text is-size-6 has-text-white is-centered mb-6">
       <h3>Powered by:</h3>
         </div>
           <img src="Spotify_Logo_RGB_Green.png" alt="Spotify full logo" style="width: 350px; height:100px;">
-       </div>
+        </div>
   </footer>
 
 </body>
-
 </html>

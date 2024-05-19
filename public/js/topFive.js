@@ -26,6 +26,17 @@ async function topFive() {
   }
   
   const topTracks = await getTopTracks();
+
+  for (let i = 0; i < 5; i++){
+
+  const trackInfo = document.getElementById(`track-${i}`);
+    trackInfo.dataset.spotifyId = topTracks[i].uri;
+  
+  const trackName = document.getElementById(`name-${i}`);
+  const track = document.createTextNode(topTracks[i].name);
+    trackName.appendChild(track);
+  };
+
   console.log(
     topTracks?.map(
       ({name, artists}) =>
@@ -33,7 +44,6 @@ async function topFive() {
     )
   );
 }
-
-document.getElementById("button1").addEventListener("click", topFive);
+topFive();
 
 module.exports = {topFive};
