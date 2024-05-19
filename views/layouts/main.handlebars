@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Session</title>
+  
+  {{!-- stlye elements for Spotify iframe --}}
+  <style>
+    .tracks {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .track {
+      min-width: max-content;
+      margin-bottom: .8rem;
+      padding: .8rem 1rem;
+      border-radius: 10px;
+      border: 0;
+      background: #191414;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .track:hover {
+      background: #1Db954;
+    }
+
+    @media screen and (min-width: 860px) {
+      body {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+  <link rel="stylesheet" href="css/style.scss">
+  <script src="/js/topFive.js"></script>
+  {{!-- Live Chat software --}}
+  <script src="https://www.momentcrm.com/embed"></script>
+  <script>
+    MomentCRM('init', {
+      'teamVanityId': 'session',
+      'doChat': true,
+      'doTimeTravel': true,
+    });
+</script>
+</head> 
+
+<body>
+  <header>
+    <div class="block">
+      <div class="columns is-centered">
+      <div class ="text is-size-1 has-text-weight-bold has-text-white is-centered mb-6">
+    <h1>Session</h1>
+    </div>
+  </div>
+    </div>
+  </header>
+  <nav>
+    <div class="columns is-centered">
+    <a href="/profile">Profile</a>
+    </div>
+  </nav>
+  <main>
+    {{{ body }}}
+  </main><div class="0"></div>
+
+<div>
+  <div class="tracks">
+
+    <button id="track-0" class="track" data-spotify-id=""> 
+      <b id="name-0"></b>
+    </button>
+
+    <button id="track-1" class="track" data-spotify-id="">
+      <b id="name-1"></b>
+    </button>
+    
+    <button id="track-2" class="track" data-spotify-id="">
+      <b id="name-2"></b>
+    </button>
+
+    <button id="track-3" class="track" data-spotify-id="">
+      <b id="name-3"></b>
+    </button>
+
+    <button id="track-4" class="track" data-spotify-id="">
+      <b id="name-4"></b>
+    </button>
+
+  </div>
+
+  <div id="embed-iframe"></div>
+  <script src="https://open.spotify.com/embed/iframe-api/v1" async>
+  </script>
+  <script type="text/javascript">
+    window.onSpotifyIframeApiReady = (IFrameAPI) => {
+      const element = document.getElementById('embed-iframe');
+      const options = {
+        width: '100%',
+        height: '160',
+        uri: 'spotify:track:18AXbzPzBS8Y3AkgSxzJPb'
+      };
+      const callback = (EmbedController) => {
+        document.querySelectorAll('.track').forEach(
+          track => {
+            track.addEventListener('click', () => {
+              EmbedController.loadUri(track.dataset.spotifyId)
+            });
+          })
+      };
+      IFrameAPI.createController(element, options, callback);
+    };
+  </script>
+  
+  </main>
+  
+  <footer>
+    <div class="columns is-centered mt-6 p-6"> 
+      <div class ="text is-size-6 has-text-white is-centered mb-6">
+      <h3>Powered by:</h3>
+        </div>
+          <img src="Spotify_Logo_RGB_Green.png" alt="Spotify full logo" style="width: 350px; height:100px;">
+        </div>
+  </footer>
+
+</body>
+</html>
