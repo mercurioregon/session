@@ -16,7 +16,7 @@ const sequelize = require('./config/connection');
 
 var client_id = "2fb4b32039a3437a86f2555b65cd707e"; // clientId
 var client_secret = "ded8bbe740b44c52890590889397007f"; // clientSecret
-var redirect_uri = "http://localhost:3001/"; // redirect uri
+var redirect_uri = "https://session-development-34dcb90af5d9.herokuapp.com/"; 
 
 
 const app = express();
