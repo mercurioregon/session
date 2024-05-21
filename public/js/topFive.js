@@ -109,6 +109,12 @@ function backTo5() {
     const track = document.createTextNode(topTrackNames[i]);
       trackName.appendChild(track);
     };
-}
+};
 
-module.exports = {topFive, getRecs, backTo5};
+const backTo5Btn = document.getElementById('button1');
+const getRecsBtn = document.getElementById('button2');
+
+backTo5Btn.addEventListener('click', backTo5);
+getRecsBtn.addEventListener('click', getRecs);
+
+export {topFive, getRecs, backTo5};
