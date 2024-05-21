@@ -130,7 +130,7 @@ console.log("redirect")
                 refresh_token: refresh_token,
                 displayName: body.display_name,
                 id: body.id,
-                profPic: body.images[0].url,
+                // profPic: body.images[0],
                 user_uri: body.uri,
                 followers: body.followers,
                 country: body.country,                
