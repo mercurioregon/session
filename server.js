@@ -54,10 +54,7 @@ var stateKey = "spotify_auth_state";
 
   app.use(router);
 
-  sequelize.sync({ force: false }).then(() => {
-    app.listen(PORT, () => console.log('Now listening'));
-  });
-
+  
 
 app.get("/login", function (req, res) {
   var state = generateRandomString(16);
@@ -183,4 +180,8 @@ app.get("/refresh_token", function (req, res) {
       });
     }
   });
+});
+
+sequelize.sync({ force: false }).then(() => {
+  app.listen(PORT, () => console.log('Now listening'));
 });
