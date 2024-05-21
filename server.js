@@ -56,7 +56,7 @@ var stateKey = "spotify_auth_state";
 
   
 
-app.get("/", function (req, res) {
+app.get("/login", function (req, res) {
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
 
