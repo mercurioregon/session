@@ -7,7 +7,6 @@ const topTracksIds = [];
 const topTrackNames = [];
 const topTrackURI = [];
 const genres = [];
-const genPick = [];
 async function topFive() {
   const getParam = window.location.search;
   const urlParse = new URLSearchParams(getParam);
@@ -169,7 +168,7 @@ async function fetchWebApi(endpoint, method, body) {
 };
 async function getSongs(){
   return (await fetchWebApi(
-    `v1/recommendations?seed_genres=${pick}&min_popularity=80`, 'GET'
+    `v1/recommendations?seed_genres=${pick}&min_popularity=50`, 'GET'
   )).tracks;
 };
 

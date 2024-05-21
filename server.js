@@ -127,7 +127,7 @@ console.log("redirect")
 
         // use the access token to access the Spotify Web API
         request.get(options, function (error, response, body) {
-
+          console.log(body)
           res.redirect(
             "/home?" +
               querystring.stringify({
@@ -137,6 +137,8 @@ console.log("redirect")
                 id: body.id,
                 profPic: body.images[0],
                 user_uri: body.uri,
+                product: body.product,
+                email: body.email,
                 followers: body.followers,
                 country: body.country,                
               })
