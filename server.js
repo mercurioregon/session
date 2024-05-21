@@ -16,7 +16,7 @@ const sequelize = require('./config/connection');
 
 var client_id = "2fb4b32039a3437a86f2555b65cd707e"; // clientId
 var client_secret = "ded8bbe740b44c52890590889397007f"; // clientSecret
-var redirect_uri = "https://session-development-34dcb90af5d9.herokuapp.com/"; 
+var redirect_uri = "https://session-development-34dcb90af5d9.herokuapp.com/home"; 
 
 
 const app = express();
@@ -61,7 +61,7 @@ var stateKey = "spotify_auth_state";
   });
 
 
-app.get("/login", function (req, res) {
+app.get("/", function (req, res) {
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
 
@@ -80,7 +80,7 @@ app.get("/login", function (req, res) {
   );
 });
 
-app.get("/", function (req, res) {
+app.get("/home", function (req, res) {
   // application requests refresh and access tokens
   // after checking the state parameter
 console.log("redirect")
