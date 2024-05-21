@@ -6,6 +6,7 @@
 const topTracksIds = [];
 const topTrackNames = [];
 const topTrackURI = [];
+const genres = [];
 async function topFive() {
   const getParam = window.location.search;
   const urlParse = new URLSearchParams(getParam);
@@ -111,10 +112,86 @@ function backTo5() {
     };
 };
 
+
+async function getGenres() {
+  const getParam = window.location.search;
+  const urlParse = new URLSearchParams(getParam);
+  const token = urlParse.get('access_token');
+  async function fetchWebApi(endpoint, method, body) {
+    const res = await fetch(`https://api.spotify.com/${endpoint}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      method,
+      body:JSON.stringify(body)
+    });
+    return await res.json();
+  };
+
+  async function getGens(){
+    return (await fetchWebApi(
+      `v1/recommendations/available-genre-seeds`, 'GET'
+    ));
+  };
+  const gens = await getGens();
+  for (let i = 0; i < 125 ; i++) {
+    genres.push(gens.genres[i]);
+    const list = document.getElementById(`genre-list`);
+    // const newGen = document.createTextNode(genres[i]);
+    const genre = document.createElement("option");
+    genre.setAttribute("id", `genre-${i}`)
+    genre.innerHTML = `${genres[i]}`
+    list.append(genre);
+
+  }
+  console.log(genres);
+};
+getGenres();
+
+async function newGen(){
+  const gen = document.getElementById("genre-list");
+  const pick = gen.options[gen.selectedIndex].text;
+  console.log(pick);
+  
+  const getParam = window.location.search;
+  const urlParse = new URLSearchParams(getParam);
+  const token = urlParse.get('access_token');
+  async function fetchWebApi(endpoint, method, body) {
+    const res = await fetch(`https://api.spotify.com/${endpoint}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      method,
+      body:JSON.stringify(body)
+    });
+    return await res.json();
+  };
+  async function getSongs(){
+    return (await fetchWebApi(
+      `v1/recommendations?seed_genres=${pick}&min_popularity=50`, 'GET'
+    )).tracks;
+  };
+  
+  const songs = await getSongs();
+  for (let i = 0; i < 5; i++){
+  
+    const trackInfo = document.getElementById(`track-${i}`);
+      trackInfo.dataset.spotifyId = songs[i].uri;
+      
+    const trackName = document.getElementById(`name-${i}`);
+    trackName.innerHTML = "";
+    const track = document.createTextNode(songs[i].name);
+      trackName.appendChild(track);
+  
+  };
+  }
+
 const backTo5Btn = document.getElementById('button1');
 const getRecsBtn = document.getElementById('button2');
+const genreRecBtn = document.getElementById('genre-list')
 
 backTo5Btn.addEventListener('click', backTo5);
 getRecsBtn.addEventListener('click', getRecs);
+genreRecBtn.addEventListener('change', newGen);
 
 export {topFive, getRecs, backTo5};
