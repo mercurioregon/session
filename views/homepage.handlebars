@@ -1,13 +1,20 @@
 <div>
-  <h2>Welcome, {{newProf}}</h2>
-  {{#if profPic}}
+  <div class=" container is-vcentered"></div>
+  <h5 class= "text has-text-danger is-size-3">Welcome, {{newProf}}</h5>
+  {{!-- {{#if profPic}}
   <img src= {{{profPic}}} alt="Profile Image" width="300" height="300">
-  {{/if}} 
-  <button type="button" id="button1">My Top 5</button>
-  <button type="button" id="button2">Get Recommendations</button>
+  {{/if}}  --}}
+
+
+  <button class="button is-danger is-inverted is-medium is-rounded is-outlined" id="button1">My Top 5</button>
+  <button class="button is-danger is-inverted is-medium is-rounded is-outlined" id="button2">Get Recommendations</button>
+    <div class= "dropdown-content is-active ">
     <select id = "genre-list">
     <option id = "genres-list"></option>
     </select>
-  <button type="button">View Groups</button>
-  <button type="button">View Friends</button>
+    </div>
+  <button class="button is-danger is-inverted is-medium is-rounded is-outlined">View Groups</button>
+  <button class="button is-danger is-inverted is-medium is-rounded is-outlined">View Friends</button>
+  </div>
+</div>
 </div>
