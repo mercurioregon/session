@@ -1,20 +1,21 @@
 <div>
   <div class=" container is-vcentered"></div>
-  <h5 class= "text has-text-danger is-size-3">Welcome, {{newProf}}</h5>
+  <h5 class= "text has-text-danger is-size-3 name-header">&nbsp;&nbsp;&nbsp;Welcome, {{newProf}}</h5>
   {{!-- {{#if profPic}}
   <img src= {{{profPic}}} alt="Profile Image" width="300" height="300">
   {{/if}}  --}}
 
 
-  <button class="button is-danger is-inverted is-medium is-rounded is-outlined" id="button1">My Top 5</button>
-  <button class="button is-danger is-inverted is-medium is-rounded is-outlined" id="button2">Get Recommendations</button>
-    <div class= "dropdown-content is-active ">
+  <button class="button is-danger is-inverted is-medium is-rounded is-outlined space1" id="button1">My Top 5</button>
+  <button class="button is-danger is-inverted is-medium is-rounded is-outlined space1" id="button2">Get Recommendations</button>
+  <button class="button is-danger is-inverted is-medium is-rounded is-outlined space1">View Groups</button>
+  <button class="button is-danger is-inverted is-medium is-rounded is-outlined space1">View Friends</button>
+      <div class= "dropdown-content is-active" style="float:right">
+        <p class = "text has-text-danger is-size-3">Select a Genre&nbsp;&nbsp;&nbsp;</p>
     <select id = "genre-list">
     <option id = "genres-list"></option>
     </select>
     </div>
-  <button class="button is-danger is-inverted is-medium is-rounded is-outlined">View Groups</button>
-  <button class="button is-danger is-inverted is-medium is-rounded is-outlined">View Friends</button>
   </div>
 </div>
 </div>
