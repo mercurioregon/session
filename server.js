@@ -8,7 +8,7 @@ const crypto = require("crypto");
 const cors = require("cors");
 const querystring = require("querystring");
 const cookieParser = require("cookie-parser");
-
+const { User } = require('./models');
 // const routes = require('./controllers');
 const router = require('./controllers');
 const sequelize = require('./config/connection');
@@ -113,7 +113,7 @@ console.log("redirect")
       if (!error && response.statusCode === 200) {
         var access_token = body.access_token,
           refresh_token = body.refresh_token;
-     
+
         var options = {
           url: "https://api.spotify.com/v1/me",
           headers: { Authorization: "Bearer " + access_token },
@@ -121,7 +121,18 @@ console.log("redirect")
         };
 
         // use the access token to access the Spotify Web API
-        request.get(options, function (error, response, body) {
+        request.get(options, async function (error, response, body) {
+
+          let user = body.display_name;
+        
+          user = await User.sync({display_name: body.display_name, email: body.email, images: body.images[0].url, refresh_token: null, country: body.country});
+        
+          req.session.save(() => {
+            req.session.display_name = body.display_name
+          });
+          
+          console.log(body);
+          // console.log(user.toJSON());
 
           res.redirect(
             "/home?" +
@@ -133,7 +144,7 @@ console.log("redirect")
                 // profPic: body.images[0],
                 user_uri: body.uri,
                 followers: body.followers,
-                country: body.country,                
+                country: body.country,          
               })
           );
         });
@@ -178,7 +189,7 @@ app.get("/refresh_token", function (req, res) {
         access_token: access_token,
         refresh_token: refresh_token,
       });
-    }
+      }
   });
 });
 
