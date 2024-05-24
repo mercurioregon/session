@@ -65,7 +65,7 @@
   </header>
   <nav>
     <div class="columns is-centered">
-    <a href="/profile">Profile</a>
+    <a href="../profile.handlebars">Profile</a>
     </div>
   </nav>
   <main>
@@ -130,6 +130,14 @@
         </div>
           <img src="Spotify_Logo_RGB_Green.png" alt="Spotify full logo" style="width: 350px; height:100px;">
         </div>
+    <div>
+  <ul>
+    <li>{{currentUser.images}}</li>
+    <li>User Name: {{currentUser.display_name}}</li>
+    <li>Email: {{currentUser.email}}</li>
+    <li>Country: {{currentUser.country}}</li>
+  </ul>
+</div>
   </footer>
 
 
