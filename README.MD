@@ -20,10 +20,11 @@ A chat feature is underway at the bottom of the page.  This will link the user w
 
 
 Github:  https://github.com/mercurioregon/session
-URL: 
 
+URL: https://session-development-34dcb90af5d9.herokuapp.com/login
 
 Authors:
+
 Austin Marlatt
 Kyler Gibbs
 James Mercurio
