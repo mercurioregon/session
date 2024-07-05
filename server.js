@@ -82,7 +82,6 @@ console.log("redirect")
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
-  console.log(`stored state`, storedState);
   console.log(`state`, state);
   if (state === null || state !== storedState) {
     res.redirect(
